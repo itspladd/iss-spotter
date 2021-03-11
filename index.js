@@ -20,3 +20,7 @@ const iss = require('./iss');
   console.log(err);
   console.log(times);
 }); */
+
+iss.nextISSTimesForMyLocation(() => {
+  console.log("done");
+});

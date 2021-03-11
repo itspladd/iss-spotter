@@ -1,7 +1,7 @@
 const request = require('request');
 
 const handleStatusCode = (code, action, body) => {
-  return Error(`Status code ${code} when ${action}. Response was: ${body}`)
+  return Error(`Status code ${code} when ${action}. Response was: ${body}`);
 };
 
 //Returns IP as a string to the given callback function.
@@ -54,8 +54,13 @@ const fetchISSFlyoverTimes = (location, callback) => {
   });
 };
 
+const nextISSTimesForMyLocation = (callback) => {
+  callback();
+};
+
 module.exports = {
   fetchIP,
   fetchCoordsByIP,
   fetchISSFlyoverTimes,
+  nextISSTimesForMyLocation,
 };
