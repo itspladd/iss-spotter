@@ -10,7 +10,7 @@ const iss = require('./iss');
   }
 }) */
 
-iss.fetchCoordsByIP( "65.28.83.195", (err, coords) => {
+/* iss.fetchCoordsByIP( "65.28.83.195", (err, coords) => {
   console.log(err);
   console.log(coords);
-});
+}); */

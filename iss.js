@@ -28,12 +28,15 @@ const fetchCoordsByIP = (ip, callback) => {
       callback(Error(msg), null);
     } else {
       //Otherwise we should have coordinates! We only want lat and long.
-      callback(null, JSON.parse(body));
+      const results = JSON.parse(body);
+      const latitude = results.latitude;
+      const longitude = results.longitude;
+      callback(null, { latitude, longitude });
     }
   });
 };
 
-module.exports = { 
+module.exports = {
   fetchIP,
   fetchCoordsByIP
 };
