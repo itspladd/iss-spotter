@@ -17,4 +17,11 @@ const fetchIP = (callback) => {
   });
 };
 
-module.exports = fetchIP;
+const fetchCoordsByIP = (ip, callback) => {
+  //TODO: Fill out
+};
+
+module.exports = { 
+  fetchIP,
+  fetchCoordsByIP
+};

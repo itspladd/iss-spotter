@@ -1,6 +1,7 @@
-const fetchIP = require('./iss');
+const iss = require('./iss');
 
-/* fetchIP( (err, ip) => {
+
+/* iss.fetchIP( (err, ip) => {
   if(err) {
     console.log(err);
     return;
