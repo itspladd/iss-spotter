@@ -1,5 +1,9 @@
 const fetchIP = require('./iss');
 
 fetchIP( (err, ip) => {
-  console.log(err, ip);
+  if(err) {
+    console.log(err);
+  } else {
+    console.log(ip);
+  }
 })
