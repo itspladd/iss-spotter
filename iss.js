@@ -48,7 +48,8 @@ const fetchISSFlyoverTimes = (location, callback) => {
       const responseCodeError = handleStatusCode(response.statusCode, "fetching ISS passes", body);
       callback(responseCodeError, null);
     } else {
-      callback(null, body);
+      const flyoverTimes = JSON.parse(body).response;
+      callback(null, flyoverTimes);
     }
   });
 };
