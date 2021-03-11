@@ -1,5 +1,14 @@
 const request = require('request');
 
-request.get('https://api.ipify.org/?format=json', (err, response, body) => {
-  console.log(body);
-});
+//Returns IP as a string to the given callback function.
+const fetchIP = (callback) => {
+  request.get('https://api.ipify.org/?format=json', (err, response, body) => {
+    if(err) {
+      callback(err, null);
+    } else {
+      callback(null, JSON.parse(body).ip);
+    }
+  });
+}
+
+module.exports = fetchIP;
