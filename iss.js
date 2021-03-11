@@ -12,8 +12,8 @@ const fetchIP = (callback) => {
       callback(err, null);
     } else if (response.statusCode !== 200) {
       // If there was a non-success response code, log it and throw an error
-      const codeError = handleStatusCode(response.statusCode, "fetching IP", body);
-      callback(codeError, null);
+      const responseCodeError = handleStatusCode(response.statusCode, "fetching IP", body);
+      callback(responseCodeError, null);
     } else {
       //Otherwise we should have an IP!
       callback(null, JSON.parse(body).ip);
@@ -28,8 +28,8 @@ const fetchCoordsByIP = (ip, callback) => {
       callback(err, null);
     } else if (response.statusCode !== 200) {
       // If there was a non-success response code, log it and throw an error
-      const codeError = handleStatusCode(response.statusCode, "fetching coordinates", body);
-      callback(Error(msg), null);
+      const responseCodeError = handleStatusCode(response.statusCode, "fetching coordinates", body);
+      callback(responseCodeError, null);
     } else {
       //Otherwise we should have coordinates! We only want lat and long.
       const results = JSON.parse(body);
@@ -45,9 +45,10 @@ const fetchISSFlyoverTimes = (location, callback) => {
     if (err) {
       callback(err, null);
     } else if (response.statusCode !== 200) {
-      const codeError = handleStatusCode(response.statusCode, "fetching ISS passes", body);
+      const responseCodeError = handleStatusCode(response.statusCode, "fetching ISS passes", body);
+      callback(responseCodeError, null);
     } else {
-      console.log("ISS success");
+      callback(null, body);
     }
   });
 };
