@@ -1,5 +1,9 @@
 const request = require('request');
 
+const handleStatusCode = (code, action, body) => {
+  return Error(`Status code ${code} when ${action}. Response was: ${body}`)
+};
+
 //Returns IP as a string to the given callback function.
 const fetchIP = (callback) => {
   request.get('https://api.ipify.org/?format=json', (err, response, body) => {
@@ -8,8 +12,8 @@ const fetchIP = (callback) => {
       callback(err, null);
     } else if (response.statusCode !== 200) {
       // If there was a non-success response code, log it and throw an error
-      const msg = `Status code ${response.statusCode} when fetching IP. Response was: ${body}`;
-      callback(Error(msg), null);
+      const codeError = handleStatusCode(response.statusCode, "fetching IP", body);
+      callback(codeError, null);
     } else {
       //Otherwise we should have an IP!
       callback(null, JSON.parse(body).ip);
@@ -24,7 +28,7 @@ const fetchCoordsByIP = (ip, callback) => {
       callback(err, null);
     } else if (response.statusCode !== 200) {
       // If there was a non-success response code, log it and throw an error
-      const msg = `Status code ${response.statusCode} when fetching coordinates. Response was: ${body}`;
+      const codeError = handleStatusCode(response.statusCode, "fetching coordinates", body);
       callback(Error(msg), null);
     } else {
       //Otherwise we should have coordinates! We only want lat and long.
@@ -36,7 +40,20 @@ const fetchCoordsByIP = (ip, callback) => {
   });
 };
 
+const fetchISSFlyoverTimes = (location, callback) => {
+  request.get(`http://api.open-notify.org/iss-pass.json?lat=${location.latitude}&lon=${location.longitude}`, (err, response, body) => {
+    if (err) {
+      callback(err, null);
+    } else if (response.statusCode !== 200) {
+      const codeError = handleStatusCode(response.statusCode, "fetching ISS passes", body);
+    } else {
+      console.log("ISS success");
+    }
+  });
+};
+
 module.exports = {
   fetchIP,
-  fetchCoordsByIP
+  fetchCoordsByIP,
+  fetchISSFlyoverTimes,
 };
