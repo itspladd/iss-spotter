@@ -22,7 +22,12 @@ const iss = require('./iss');
 }); */
 
 iss.nextISSTimesForMyLocation( (err, times) => {
-  console.log(err);
-  console.log(times);
+  if (err) {
+    console.log(err);
+  } else {
+    times.forEach( pass => {
+      console.log(`Next pass at ${Date(pass.risetime)} for ${pass.duration} seconds!`);
+    });
+  }
   
 });
