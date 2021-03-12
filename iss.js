@@ -32,7 +32,7 @@ const fetchCoordsByIP = (ip, callback) => {
       callback(responseCodeError, null);
     } else {
       //Otherwise we should have coordinates! We only want lat and long.
-      const { latitude, longitude } = JSON.parse(body)
+      const { latitude, longitude } = JSON.parse(body);
       callback(null, { latitude, longitude });
     }
   });
@@ -53,9 +53,9 @@ const fetchISSFlyoverTimes = (location, callback) => {
 };
 
 const nextISSTimesForMyLocation = (callback) => {
-  fetchIP( (err, ip) => {
-    fetchCoordsByIP( ip, (err, coords) => {
-      fetchISSFlyoverTimes( coords, (err, times) => {
+  fetchIP((err, ip) => {
+    fetchCoordsByIP(ip, (err, coords) => {
+      fetchISSFlyoverTimes(coords, (err, times) => {
         callback(err, times);
       });
     });
